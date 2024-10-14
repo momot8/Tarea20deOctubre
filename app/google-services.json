@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1084417317751",
+    "project_id": "octubre-61ad9",
+    "storage_bucket": "octubre-61ad9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1084417317751:android:be5338319860d96aa9df72",
+        "android_client_info": {
+          "package_name": "actividad.octubre"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWdJOYND0Tr6fEdVYPEdTEEgESdnURRw0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
