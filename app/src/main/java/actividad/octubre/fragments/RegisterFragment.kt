@@ -81,7 +81,7 @@ class RegisterFragment : Fragment(), OnClickListener {
                         "username" to user,
                         "createdAt" to FieldValue.serverTimestamp()
                     )
-
+//ASDA
                     db.collection("Users").document(userId).set(userMap).addOnSuccessListener {
                         Log.d("Register", "User registrado")
                         findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
