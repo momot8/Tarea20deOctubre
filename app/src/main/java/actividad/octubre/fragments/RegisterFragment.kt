@@ -66,19 +66,31 @@ class RegisterFragment : Fragment(), OnClickListener {
     }
 
     override fun onClick(p0: View?) {
+
+        if(p0!!.id== btnRegistrarse.id){
+
+            createAccount(txtCorreo.text.toString(), txtContraseña.text.toString())
+
+        }
+
+
         if(p0!!.id== btnVolver.id){
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-        }else if(p0!!.id== btnRegistrarse.id){
-            createAccount(txtCorreo.toString(), txtContraseña.toString())
         }
+
+
+
     }
 
     private fun createAccount(email: String, password: String) {
-        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(requireActivity()) { task ->
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
+
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
 
                 } else {
                     // If sign in fails, display a message to the user.
