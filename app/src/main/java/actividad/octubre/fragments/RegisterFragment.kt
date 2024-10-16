@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -17,18 +18,23 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
-lateinit var btnRegistrarse:Button
-lateinit var btnVolver:Button
-lateinit var txtContraseña:EditText
-lateinit var txtCorreo:EditText
 
-lateinit var auth:FirebaseAuth
-lateinit var db:FirebaseFirestore
-
-val TAG:String = "RegisterFragment"
 
 
 class RegisterFragment : Fragment(), OnClickListener {
+
+    lateinit var btnRegistrarse:Button
+    lateinit var btnVolver:Button
+    lateinit var txtContraseña:EditText
+    lateinit var txtCorreo:EditText
+
+    lateinit var auth:FirebaseAuth
+    lateinit var db:FirebaseFirestore
+
+    val TAG:String = "RegisterFragment"
+
+
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,36 +69,31 @@ class RegisterFragment : Fragment(), OnClickListener {
         if(p0!!.id== btnVolver.id){
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }else if(p0!!.id== btnRegistrarse.id){
-            registrarUsuario(txtCorreo.toString(), txtContraseña.toString())
+            createAccount(txtCorreo.toString(), txtContraseña.toString())
         }
     }
 
-     fun registrarUsuario(email:String, contraseña:String) {
-        auth.createUserWithEmailAndPassword(email, contraseña).addOnCompleteListener{ task ->
-            if(task.isSuccessful){
-                val user = auth.currentUser
+    private fun createAccount(email: String, password: String) {
+        auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(requireActivity()) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success")
+                    val user = auth.currentUser
 
-                if(user != null){
-                    val userId = user.uid
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        requireActivity(),
+                        "Error al crear el perfil. Intentalo de nuevo, porfavor.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
 
-                    val userMap = hashMapOf(
-                        "uid" to userId,
-                        "email" to email,
-                        "username" to user,
-                        "createdAt" to FieldValue.serverTimestamp()
-                    )
-//ASDA
-                    db.collection("Users").document(userId).set(userMap).addOnSuccessListener {
-                        Log.d("Register", "User registrado")
-                        findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-                    }.addOnFailureListener{
-                        e -> Log.e("Register","No se ha podido registrar este usuario")
-                    }
                 }
             }
 
-        }
     }
+
 
 
 }
