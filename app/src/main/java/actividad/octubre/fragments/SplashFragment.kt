@@ -83,7 +83,8 @@ class SplashFragment : Fragment() {
             DataHolder.descargarPerfil(requireActivity(),findNavController(),R.id.action_loginFragment_to_profileFragment)
 
         }else{
-            findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
+            val navOptions = NavOptions.Builder().setPopUpTo(R.id.auth_nav, true).build()
+            findNavController().navigate(R.id.action_splashFragment_to_loginFragment, null, navOptions)
         }
     }
 
