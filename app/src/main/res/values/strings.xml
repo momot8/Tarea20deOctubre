@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">Actividad20Octubre</string>
-<!--  Strings añadidos o cambiados manualmente  -->
+    <!--  Strings añadidos o cambiados manualmente  -->
     <string name="hello_blank_fragment">NUEVO FRAGMENT</string>
     <string name="welcome_msg">Hola Caracola !!!</string>
 </resources>

@@ -24,6 +24,7 @@ class LoginFragment : Fragment(), OnClickListener {
     lateinit var btnRegister:Button
     lateinit var edtxtCorreo:EditText
     lateinit var edtxtContraseña:EditText
+
     private lateinit var auth: FirebaseAuth
 
 
