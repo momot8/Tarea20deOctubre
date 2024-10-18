@@ -29,7 +29,7 @@ class RegisterFragment : Fragment(), OnClickListener {
     lateinit var txtCorreo:EditText
 
     lateinit var auth:FirebaseAuth
-    lateinit var db:FirebaseFirestore
+  //  lateinit var db:FirebaseFirestore
 
     val TAG:String = "RegisterFragment"
 
@@ -41,12 +41,13 @@ class RegisterFragment : Fragment(), OnClickListener {
         super.onCreate(savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
-        db = Firebase.firestore
+        //db = Firebase.firestore
 
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         btnVolver = view.findViewById(R.id.btnVolver)
         btnRegistrarse = view.findViewById(R.id.button3)
 
@@ -55,6 +56,8 @@ class RegisterFragment : Fragment(), OnClickListener {
         txtContraseña=view.findViewById(R.id.editTextTextPassword)
 
         btnVolver.setOnClickListener(this)
+        //AGREGA TODAS LAS FUNCIONES GABI, NO TE FUNCIONABA X ESTO
+        btnRegistrarse.setOnClickListener(this)
     }
 
     override fun onCreateView(
@@ -71,6 +74,9 @@ class RegisterFragment : Fragment(), OnClickListener {
 
             createAccount(txtCorreo.text.toString(), txtContraseña.text.toString())
 
+        }else if(p0!!.id==btnRegistrarse.id && txtCorreo.text.toString().isEmpty() && txtContraseña.text.toString().isEmpty()){
+            Log.w(TAG, "No ha rellenado los gaps")
+            Toast.makeText(requireActivity(), "Has de rellenar todos los huecos", Toast.LENGTH_SHORT).show()
         }
 
 
