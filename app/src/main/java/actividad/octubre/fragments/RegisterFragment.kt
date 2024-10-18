@@ -71,16 +71,31 @@ class RegisterFragment : Fragment(), OnClickListener {
     override fun onClick(p0: View?) {
 
         if(p0!!.id== btnRegistrarse.id){
+            val usuario=txtCorreo.text.toString()
+            val contraseña=txtContraseña.text.toString()
 
-            createAccount(txtCorreo.text.toString(), txtContraseña.text.toString())
+            if (usuario.isEmpty() || contraseña.isEmpty()) {
+                for(i in 0 until 5) {
+                    Log.e(TAG, "No ha rellenado los campos")
+                }
+                Toast.makeText(requireActivity(), "Has de rellenar todos los huecos", Toast.LENGTH_SHORT).show()
+            } else {
+                createAccount(usuario, contraseña)
+            }
+
 
         }else if(p0!!.id==btnRegistrarse.id && txtCorreo.text.toString().isEmpty() && txtContraseña.text.toString().isEmpty()){
-            Log.w(TAG, "No ha rellenado los gaps")
+            for(i in 0 until 5) {
+                Log.e(TAG, "No ha rellenado los gaps")
+            }
+
+
             Toast.makeText(requireActivity(), "Has de rellenar todos los huecos", Toast.LENGTH_SHORT).show()
         }
 
 
         if(p0!!.id== btnVolver.id){
+            Toast.makeText(requireActivity(), "Volviendo...", Toast.LENGTH_SHORT).show()
             findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
         }
 
@@ -94,6 +109,7 @@ class RegisterFragment : Fragment(), OnClickListener {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
+                    Toast.makeText(requireActivity(), "Usuario creado. Dirigiendose a la pantalla de Login", Toast.LENGTH_SHORT).show()
                     val user = auth.currentUser
 
                     findNavController().navigate(R.id.action_registerFragment_to_loginFragment)

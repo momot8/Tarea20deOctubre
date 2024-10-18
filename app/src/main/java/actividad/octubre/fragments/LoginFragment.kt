@@ -26,6 +26,7 @@ class LoginFragment : Fragment(), OnClickListener {
     lateinit var edtxtContraseña:EditText
     private lateinit var auth: FirebaseAuth
 
+
     val TAG:String = "LoginFragment"
 
 
@@ -61,7 +62,20 @@ class LoginFragment : Fragment(), OnClickListener {
 
     override fun onClick(p0:View?){
         if(p0!!.id== btnLogin.id){
-            comprobarPerfil(edtxtCorreo.text.toString(), edtxtContraseña.text.toString())
+            val usuario=edtxtCorreo.text.toString()
+            val contraseña = edtxtContraseña.text.toString()
+
+            if(usuario.isEmpty() || contraseña.isEmpty()){
+
+                for(i in 0 until 5){
+                    Log.e(TAG, "No ha rellenado los datos para logearse")
+                }
+
+                Toast.makeText(requireActivity(), "Debes rellenar ambos campos", Toast.LENGTH_SHORT).show()
+            }else{
+                comprobarPerfil(usuario, contraseña)
+            }
+
         }else if(p0!!.id== btnRegister.id){
             irRegistro()
 
@@ -89,7 +103,10 @@ class LoginFragment : Fragment(), OnClickListener {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithEmail:success")
+                    Log.i(TAG,"El usuario se ha logeado correctamente")
                     val user = auth.currentUser
+
+                    Toast.makeText(requireActivity(), "Re-dirigiendose a perfiles", Toast.LENGTH_SHORT).show()
                     findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
 
                 } else {
@@ -97,7 +114,7 @@ class LoginFragment : Fragment(), OnClickListener {
                     Log.w(TAG, "signInWithEmail:failure", task.exception)
                     Toast.makeText(
                         requireActivity(),
-                        "Authentication failed.",
+                        "Correo o contraseña incorrectas.",
                         Toast.LENGTH_SHORT,
                     ).show()
 
