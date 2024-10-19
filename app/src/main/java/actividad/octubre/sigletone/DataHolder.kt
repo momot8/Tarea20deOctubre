@@ -12,7 +12,8 @@ import actividad.octubre.HomeActivity
 
 object DataHolder {
     var fbProfileUser:FBProfile?=null
-    var fbProfileUserSelected:FBProfile?=null
+
+
     var homeActivity:HomeActivity?=null
 
     val TAG = "DataHolder"

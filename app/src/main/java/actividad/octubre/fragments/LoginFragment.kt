@@ -1,11 +1,13 @@
 package actividad.octubre.fragments
 
+import actividad.octubre.HomeActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import actividad.octubre.R
+import android.content.Intent
 import android.util.Log
 import android.view.View.OnClickListener
 import android.widget.*
@@ -14,6 +16,8 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 import com.google.protobuf.Internal.BooleanList
 
 
@@ -26,6 +30,7 @@ class LoginFragment : Fragment(), OnClickListener {
     lateinit var edtxtContraseña:EditText
 
     private lateinit var auth: FirebaseAuth
+    lateinit var db: FirebaseFirestore
 
 
     val TAG:String = "LoginFragment"
@@ -36,7 +41,7 @@ class LoginFragment : Fragment(), OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         auth = Firebase.auth
-
+        db = Firebase.firestore
     }
 
     override fun onCreateView(
@@ -84,18 +89,12 @@ class LoginFragment : Fragment(), OnClickListener {
     }
 
 
-//    public override fun onStart() {
-//        super.onStart()
-//        // Check if user is signed in (non-null) and update UI accordingly.
-//        val currentUser = auth.currentUser
-//        if (currentUser != null) {
-//            reload()
-//        }
-//    }
 
     private fun irRegistro() {
         findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
     }
+
+
 
     private fun comprobarPerfil(email:String, password:String) {
 
@@ -107,8 +106,17 @@ class LoginFragment : Fragment(), OnClickListener {
                     Log.i(TAG,"El usuario se ha logeado correctamente")
                     val user = auth.currentUser
 
-                    Toast.makeText(requireActivity(), "Re-dirigiendose a perfiles", Toast.LENGTH_SHORT).show()
-                    findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+                    comprobarDatos()
+
+
+
+
+
+
+
+
+//                    Toast.makeText(requireActivity(), "Re-dirigiendose a perfiles", Toast.LENGTH_SHORT).show()
+//                    findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
 
                 } else {
                     // If sign in fails, display a message to the user.
@@ -123,6 +131,41 @@ class LoginFragment : Fragment(), OnClickListener {
             }
 
 
+    }
+    private fun comprobarDatos(){
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        currentUser?.let { user ->
+            val uid = user.uid
+
+
+            val docRef = db.collection("Profiles").document(uid)
+
+            docRef.get().addOnSuccessListener { document ->
+                if (document != null) {
+
+                    val name = document.getString("name")
+                    val age = document.getLong("age")?.toInt()
+
+                        if(name!=null || age!=null){
+                            val intentHomeActivity: Intent = Intent(requireActivity(), HomeActivity::class.java)
+                            requireActivity().startActivity(intentHomeActivity)
+                            requireActivity().finish()
+                        }else{
+                            Toast.makeText(requireActivity(), "Re-dirigiendose a perfiles", Toast.LENGTH_SHORT).show()
+                            findNavController().navigate(R.id.action_loginFragment_to_profileFragment)
+                        }
+
+
+
+
+                } else {
+                    Log.w(TAG,"No existe un documento para este usuario")
+                }
+            }.addOnFailureListener { exception ->
+                println("Error al obtener los datos: ${exception.message}")
+            }
+        }
     }
 
 

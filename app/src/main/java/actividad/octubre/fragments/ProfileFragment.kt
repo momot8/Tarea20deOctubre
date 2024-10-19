@@ -16,6 +16,9 @@ import androidx.navigation.fragment.findNavController
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import actividad.octubre.HomeActivity
+import android.nfc.Tag
+import android.util.Log
+import android.widget.Toast
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
@@ -31,6 +34,8 @@ class ProfileFragment : Fragment(),OnClickListener {
 
     lateinit var auth:FirebaseAuth
     lateinit var db: FirebaseFirestore
+
+    var TAG="ProfileFragment"
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,19 +66,26 @@ class ProfileFragment : Fragment(),OnClickListener {
     }
 
     override fun onClick(p0: View?) {
-        if(p0!!.id==btnRegreso.id){
-            findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
-        }else if(p0!!.id==btnGuardar.id){
-            val nuevoPerfil= FBProfile(edtxtNombre.text.toString(), edTxtEdad.text.toString().toInt(), Timestamp.now(), auth.currentUser!!.uid)
 
-            DataHolder.fbProfileUser=nuevoPerfil
+        if(edtxtNombre!=null || edTxtEdad!=null){
+            if(p0!!.id==btnRegreso.id){
+                findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
+            }else if(p0!!.id==btnGuardar.id){
+                val nuevoPerfil= FBProfile(edtxtNombre.text.toString(), edTxtEdad.text.toString().toInt(), Timestamp.now(), auth.currentUser!!.uid)
 
-            db.collection("Profiles").document(auth.currentUser!!.uid).set(nuevoPerfil).addOnSuccessListener {
-                val intentHomeActivity: Intent = Intent(requireActivity(), HomeActivity::class.java)
-                requireActivity().startActivity(intentHomeActivity)
-                requireActivity().finish()
+                DataHolder.fbProfileUser=nuevoPerfil
+
+                db.collection("Profiles").document(auth.currentUser!!.uid).set(nuevoPerfil).addOnSuccessListener {
+                    val intentHomeActivity: Intent = Intent(requireActivity(), HomeActivity::class.java)
+                    requireActivity().startActivity(intentHomeActivity)
+                    requireActivity().finish()
+                }
             }
+        }else{
+            Toast.makeText(requireActivity(), "Rellena los campos, porfavor", Toast.LENGTH_SHORT).show()
+            Log.w(TAG,  "Campos Nombre y/o edad sin completar")
         }
+
     }
 
 

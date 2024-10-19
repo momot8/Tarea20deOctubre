@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav"
+    app:startDestination="@id/homeProfileFragment">
+
+    <fragment
+        android:id="@+id/listProfilesFragment"
+        android:name="actividad.octubre.home_fragments.listProfilesFragment"
+        android:label="fragment_list_profiles"
+        tools:layout="@layout/fragment_list_profiles" >
+        <action
+            android:id="@+id/action_listProfilesFragment_to_homeProfileFragment"
+            app:destination="@id/homeProfileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeProfileFragment"
+        android:name="actividad.octubre.home_fragments.homeProfileFragment"
+        android:label="fragment_home_profile"
+        tools:layout="@layout/fragment_home_profile" />
+</navigation>

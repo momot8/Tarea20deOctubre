@@ -61,7 +61,6 @@ class SplashFragment : Fragment() {
                     progressBar2.progress=(contador)*20
 
                     if(contador==totalRuns){
-
                         timer.cancel()
                         comprobarUser()
 
@@ -80,7 +79,9 @@ class SplashFragment : Fragment() {
         val user = Firebase.auth.currentUser
 
         if(user!=null){
-            DataHolder.descargarPerfil(requireActivity(),findNavController(),R.id.action_loginFragment_to_profileFragment)
+            DataHolder.descargarPerfil(requireActivity()
+                ,findNavController(),
+                R.id.action_splashFragment_to_profileFragment)
 
         }else{
             val navOptions = NavOptions.Builder().setPopUpTo(R.id.auth_nav, true).build()
