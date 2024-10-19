@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import actividad.octubre.R
+import actividad.octubre.fbclases.FBProfile
 import android.os.Handler
 import android.os.Looper
 import android.widget.ProgressBar
@@ -19,6 +20,8 @@ import actividad.octubre.sigletone.DataHolder
 import android.util.Log
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 
 class SplashFragment : Fragment() {
@@ -28,6 +31,7 @@ class SplashFragment : Fragment() {
     var iProgress:Int=0
 //Parte auth
     lateinit var auth:FirebaseAuth
+    lateinit var db: FirebaseFirestore
 
     var TAG ="SplashFragment"
 
@@ -45,6 +49,7 @@ class SplashFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         progressBar=view.findViewById(R.id.progressBar)
         progressBar2=view.findViewById(R.id.progressBar2)
+        db = Firebase.firestore
 
     }
 
@@ -75,6 +80,21 @@ class SplashFragment : Fragment() {
     fun comprobarUser(){
         Log.e(TAG,"COMPROBAR USER" )
 
+        val currentUser = FirebaseAuth.getInstance().currentUser
+
+        currentUser?.let { user ->
+            val uid = user.uid
+
+
+            val docRef = db.collection("Profiles").document(uid)
+
+
+        }
+
+
+
+
+
 
         val user = Firebase.auth.currentUser
 
@@ -87,6 +107,13 @@ class SplashFragment : Fragment() {
             val navOptions = NavOptions.Builder().setPopUpTo(R.id.auth_nav, true).build()
             findNavController().navigate(R.id.action_splashFragment_to_loginFragment, null, navOptions)
         }
+
+
+
+
+
+
+
     }
 
     override fun onCreateView(

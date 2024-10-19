@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat.finishAffinity
 import androidx.navigation.fragment.findNavController
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
 import java.util.Timer
@@ -108,6 +109,23 @@ class homeProfileFragment : Fragment(),OnClickListener {
         }
         if(p0!!.id==btnCambiar.id){
             //Si quiero cambiar he de ir desde homeActivty hasta  mainActiivty.profileFragment.
+
+            //Hay que borrar los datos ya obtenidos
+
+
+            val currentUser = FirebaseAuth.getInstance().currentUser
+
+            currentUser?.let { user ->
+                val uid = user.uid
+                val docRef = db.collection("Profiles").document(uid)
+
+                docRef.update("name", FieldValue.delete())
+                docRef.update("age", FieldValue.delete())
+
+            }
+
+
+
 
             val intentCambiarDatos: Intent = Intent(requireActivity(), MainActivity::class.java)
             requireActivity().startActivity(intentCambiarDatos)

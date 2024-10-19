@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import actividad.octubre.R
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.util.Log
 import android.view.View.OnClickListener
@@ -132,6 +133,7 @@ class LoginFragment : Fragment(), OnClickListener {
 
 
     }
+    @SuppressLint("SuspiciousIndentation")
     private fun comprobarDatos(){
         val currentUser = FirebaseAuth.getInstance().currentUser
 
