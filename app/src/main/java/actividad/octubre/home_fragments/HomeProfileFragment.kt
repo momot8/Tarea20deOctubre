@@ -51,7 +51,7 @@ class homeProfileFragment : Fragment(),OnClickListener {
         btnCerrarSesion.setOnClickListener(this)
 
         btnCambiar=view.findViewById(R.id.btnCambiar)
-        btnCerrarSesion.setOnClickListener(this)
+        btnCambiar.setOnClickListener(this)
 
         auth= FirebaseAuth.getInstance()
         db = Firebase.firestore
@@ -107,6 +107,16 @@ class homeProfileFragment : Fragment(),OnClickListener {
 
         }
         if(p0!!.id==btnCambiar.id){
+            //Si quiero cambiar he de ir desde homeActivty hasta  mainActiivty.profileFragment.
+
+            val intentCambiarDatos: Intent = Intent(requireActivity(), MainActivity::class.java)
+            requireActivity().startActivity(intentCambiarDatos)
+            requireActivity().finish()
+
+            Toast.makeText(requireActivity(), "Volviendo a perfil...", Toast.LENGTH_SHORT).show()
+            Log.w(TAG, "Intento de volver al main activity para cambiar datos en profileFragment")
+
+
 
         }
     }

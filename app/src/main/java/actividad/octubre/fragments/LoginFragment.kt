@@ -145,7 +145,7 @@ class LoginFragment : Fragment(), OnClickListener {
                 if (document != null) {
 
                     val name = document.getString("name")
-                    val age = document.getLong("age")?.toInt()
+                    val age = document.getLong("age")
 
                         if(name!=null || age!=null){
                             val intentHomeActivity: Intent = Intent(requireActivity(), HomeActivity::class.java)
