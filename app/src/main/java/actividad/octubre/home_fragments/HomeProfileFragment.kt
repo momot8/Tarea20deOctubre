@@ -32,6 +32,7 @@ class homeProfileFragment : Fragment(),OnClickListener {
 
     lateinit var btnCerrarSesion:Button
     lateinit var btnCambiar:Button
+    lateinit var btnVolver:Button
 
 
     lateinit var txtUser:TextView
@@ -54,6 +55,9 @@ class homeProfileFragment : Fragment(),OnClickListener {
 
         btnCerrarSesion= view.findViewById(R.id.btnCerrarSesion)
         btnCerrarSesion.setOnClickListener(this)
+
+        btnVolver=view.findViewById(R.id.btnVolver)
+        btnVolver.setOnClickListener(this)
 
         btnCambiar=view.findViewById(R.id.btnCambiar)
         btnCambiar.setOnClickListener(this)
@@ -131,6 +135,9 @@ class homeProfileFragment : Fragment(),OnClickListener {
                 docRef.update("age", FieldValue.delete())
 
             }
+        }
+        if(p0!!.id==btnVolver.id){
+            findNavController().navigate(R.id.action_homeProfileFragment_to_listProfilesFragment)
         }
     }
 

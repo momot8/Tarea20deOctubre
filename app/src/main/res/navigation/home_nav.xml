@@ -22,6 +22,9 @@
         <action
             android:id="@+id/action_homeProfileFragment_to_homeCambiarFragment"
             app:destination="@id/homeCambiarFragment" />
+        <action
+            android:id="@+id/action_homeProfileFragment_to_listProfilesFragment"
+            app:destination="@id/listProfilesFragment" />
     </fragment>
     <fragment
         android:id="@+id/homeCambiarFragment"
