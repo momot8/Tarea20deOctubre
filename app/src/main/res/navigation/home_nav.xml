@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/home_nav"
-    app:startDestination="@id/homeProfileFragment">
+    app:startDestination="@id/listProfilesFragment">
 
     <fragment
         android:id="@+id/listProfilesFragment"
@@ -18,5 +18,18 @@
         android:id="@+id/homeProfileFragment"
         android:name="actividad.octubre.home_fragments.homeProfileFragment"
         android:label="fragment_home_profile"
-        tools:layout="@layout/fragment_home_profile" />
+        tools:layout="@layout/fragment_home_profile" >
+        <action
+            android:id="@+id/action_homeProfileFragment_to_homeCambiarFragment"
+            app:destination="@id/homeCambiarFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/homeCambiarFragment"
+        android:name="actividad.octubre.home_fragments.HomeCambiarFragment"
+        android:label="fragment_home_cambiar"
+        tools:layout="@layout/fragment_home_cambiar" >
+        <action
+            android:id="@+id/action_homeCambiarFragment_to_homeProfileFragment"
+            app:destination="@id/homeProfileFragment" />
+    </fragment>
 </navigation>

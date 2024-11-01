@@ -108,10 +108,8 @@ class homeProfileFragment : Fragment(),OnClickListener {
 
         }
         if(p0!!.id==btnCambiar.id){
-            //Si quiero cambiar he de ir desde homeActivty hasta  mainActiivty.profileFragment.
-
-            //Hay que borrar los datos ya obtenidos
-
+            findNavController().navigate(R.id.action_homeProfileFragment_to_homeCambiarFragment)
+            Log.w(TAG, "Error")
 
             val currentUser = FirebaseAuth.getInstance().currentUser
 
@@ -123,19 +121,6 @@ class homeProfileFragment : Fragment(),OnClickListener {
                 docRef.update("age", FieldValue.delete())
 
             }
-
-
-
-
-            val intentCambiarDatos: Intent = Intent(requireActivity(), MainActivity::class.java)
-            requireActivity().startActivity(intentCambiarDatos)
-            requireActivity().finish()
-
-            Toast.makeText(requireActivity(), "Volviendo a perfil...", Toast.LENGTH_SHORT).show()
-            Log.w(TAG, "Intento de volver al main activity para cambiar datos en profileFragment")
-
-
-
         }
     }
 
