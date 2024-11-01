@@ -23,6 +23,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import org.w3c.dom.Text
 import java.util.Timer
 import java.util.TimerTask
 
@@ -34,7 +35,10 @@ class homeProfileFragment : Fragment(),OnClickListener {
 
 
     lateinit var txtUser:TextView
-    lateinit var txtAge:TextView
+    lateinit var txtEdad:TextView
+    lateinit var txtApellido:TextView
+    lateinit var txtHobbie:TextView
+
     var TAG = "homeProfileFragment"
 
 
@@ -58,7 +62,9 @@ class homeProfileFragment : Fragment(),OnClickListener {
         db = Firebase.firestore
 
         txtUser=view.findViewById(R.id.txtUser)
-        txtAge=view.findViewById(R.id.txtAge)
+        txtEdad=view.findViewById(R.id.txtAge)
+        txtApellido = view.findViewById(R.id.txtApellido)
+        txtHobbie = view.findViewById(R.id.txtHobbie)
 
 
         val currentUser = FirebaseAuth.getInstance().currentUser
@@ -73,11 +79,15 @@ class homeProfileFragment : Fragment(),OnClickListener {
                 if (document != null) {
 
                     val name = document.getString("name")
-                    val age = document.getLong("age")?.toInt()
+                    val edad = document.getString("edad")
+                    val apellido = document.getString("apellido")
+                    val hobbie = document.getString("hobbie")
 
 
                     txtUser.text="Nombre: $name"
-                    txtAge.text="Edad: $age"
+                    txtEdad.text="Edad: $edad"
+                    txtApellido.text = "Apellido: $apellido"
+                    txtHobbie.text = "Hobbie: $hobbie"
 
 
                 } else {

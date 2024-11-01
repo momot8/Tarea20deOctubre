@@ -6,15 +6,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import actividad.octubre.R
+import actividad.octubre.fbclases.FBProfile
+import actividad.octubre.sigletone.DataHolder
+import android.util.Log
 import android.view.View.OnClickListener
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.navigation.fragment.findNavController
-
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.firestore
 
 
 class HomeCambiarFragment : Fragment(), OnClickListener {
+
+    lateinit var db: FirebaseFirestore
+    lateinit var auth:FirebaseAuth
 
     lateinit var txtView: TextView
     lateinit var edTxtNombre: EditText
@@ -23,6 +34,7 @@ class HomeCambiarFragment : Fragment(), OnClickListener {
     lateinit var edTxtEdad: EditText
 
     lateinit var btnVolver: Button
+
     lateinit var btnGuardar:Button
 
     val TAG:String = "HomeCambiarFragment"
@@ -30,6 +42,11 @@ class HomeCambiarFragment : Fragment(), OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+         db = Firebase.firestore
+        auth= FirebaseAuth.getInstance()
+
+
         btnVolver = view.findViewById(R.id.btnVolver)
         btnVolver.setOnClickListener(this)
 
@@ -45,10 +62,12 @@ class HomeCambiarFragment : Fragment(), OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        var db = FirebaseDatabase.getInstance().reference
 
     }
 
     override fun onCreateView(
+
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
@@ -58,7 +77,8 @@ class HomeCambiarFragment : Fragment(), OnClickListener {
 
     override fun onClick(p0: View?) {
         if(p0!!.id==btnGuardar.id){
-            findNavController().navigate(R.id.action_homeCambiarFragment_to_homeProfileFragment)
+            guardarDatos()
+            Log.w(TAG, "Btn Guardar clickeado")
 
         }
         if(p0!!.id==btnVolver.id){
@@ -66,4 +86,30 @@ class HomeCambiarFragment : Fragment(), OnClickListener {
         }
     }
 
+
+
+
+    private fun guardarDatos(){
+        val nombre = edTxtNombre.text.toString()
+        val apellido = edTxtApellido.text.toString()
+        val hobbie = edTxtHobbie.text.toString()
+        val edad = edTxtEdad.text.toString()
+
+        if(nombre.isNotEmpty() && apellido.isNotEmpty() && hobbie.isNotEmpty() && edad.isNotEmpty()){
+
+
+            val nuevoPerfil = FBProfile(edTxtNombre.text.toString(), edTxtEdad.text.toString(), edTxtHobbie.text.toString(), edTxtApellido.text.toString(), auth.currentUser!!.uid)
+
+            DataHolder.fbProfileUser=nuevoPerfil
+
+
+            db.collection("Profiles").document(auth.currentUser!!.uid).set(nuevoPerfil)
+
+            findNavController().navigate(R.id.action_homeCambiarFragment_to_homeProfileFragment)
+        }else {
+            Log.e(TAG, "Todos los campos son obligatorios")
+        }
+
+
+    }
 }

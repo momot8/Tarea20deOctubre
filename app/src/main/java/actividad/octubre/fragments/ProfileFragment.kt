@@ -29,6 +29,9 @@ class ProfileFragment : Fragment(),OnClickListener {
 
     lateinit var edtxtNombre: EditText
     lateinit var edTxtEdad: EditText
+    lateinit var edTxtApellido: EditText
+    lateinit var edTxtHobbie: EditText
+
     lateinit var btnGuardar: Button
     lateinit var btnRegreso:Button
 
@@ -63,6 +66,8 @@ class ProfileFragment : Fragment(),OnClickListener {
 
         edtxtNombre= view.findViewById(R.id.edtxtNombre)
         edTxtEdad = view.findViewById(R.id.edtxtEdad)
+        edTxtHobbie = view.findViewById(R.id.edTxtHobbie)
+        edTxtApellido = view.findViewById(R.id.edTxtApellido )
     }
 
     override fun onClick(p0: View?) {
@@ -71,7 +76,7 @@ class ProfileFragment : Fragment(),OnClickListener {
             if(p0!!.id==btnRegreso.id){
                 findNavController().navigate(R.id.action_profileFragment_to_loginFragment)
             }else if(p0!!.id==btnGuardar.id){
-                val nuevoPerfil= FBProfile(edtxtNombre.text.toString(), edTxtEdad.text.toString().toInt(), Timestamp.now(), auth.currentUser!!.uid)
+                val nuevoPerfil= FBProfile(edtxtNombre.text.toString(), edTxtEdad.text.toString(), edTxtHobbie.text.toString(),edTxtApellido.text.toString(), auth.currentUser!!.uid)
 
                 DataHolder.fbProfileUser=nuevoPerfil
 
