@@ -32,6 +32,7 @@ class HomeCambiarFragment : Fragment(), OnClickListener {
     lateinit var edTxtApellido: EditText
     lateinit var edTxtHobbie: EditText
     lateinit var edTxtEdad: EditText
+    lateinit var edTxtFoto:EditText
 
     lateinit var btnVolver: Button
 
@@ -58,6 +59,7 @@ class HomeCambiarFragment : Fragment(), OnClickListener {
         edTxtApellido = view.findViewById(R.id.edTxtApellidos)
         edTxtHobbie = view.findViewById(R.id.edTxtHobbies)
         edTxtEdad = view.findViewById(R.id.edTxtEdad)
+        edTxtFoto = view.findViewById(R.id.edTxtFoto)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,11 +96,13 @@ class HomeCambiarFragment : Fragment(), OnClickListener {
         val apellido = edTxtApellido.text.toString()
         val hobbie = edTxtHobbie.text.toString()
         val edad = edTxtEdad.text.toString()
+        val foto = edTxtFoto.text.toString()
 
-        if(nombre.isNotEmpty() && apellido.isNotEmpty() && hobbie.isNotEmpty() && edad.isNotEmpty()){
+
+        if(nombre.isNotEmpty() && apellido.isNotEmpty() && hobbie.isNotEmpty() && edad.isNotEmpty() && foto.isNotEmpty() ){
 
 
-            val nuevoPerfil = FBProfile(edTxtNombre.text.toString(), edTxtEdad.text.toString(), edTxtHobbie.text.toString(), edTxtApellido.text.toString(), auth.currentUser!!.uid)
+            val nuevoPerfil = FBProfile(edTxtNombre.text.toString(), edTxtEdad.text.toString(), edTxtHobbie.text.toString(), edTxtApellido.text.toString(), edTxtFoto.text.toString(), auth.currentUser!!.uid)
 
             DataHolder.fbProfileUser=nuevoPerfil
 

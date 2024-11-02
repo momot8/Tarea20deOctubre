@@ -10,23 +10,26 @@ import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
 
 
 
 class StringViewHolder(val view: View, val fragmentoPadre: Fragment) : RecyclerView.ViewHolder(view), OnClickListener {
 
     // Referencias a las vistas usando los IDs definidos en el XML
-    var txtName: TextView = view.findViewById(R.id.list_name)           // ID correcto
-    var txtHobbie: TextView = view.findViewById(R.id.list_hobbie)      // ID correcto
-    var txtApellido: TextView = view.findViewById(R.id.list_apellido)   // ID correcto
-    var txtEdad: TextView = view.findViewById(R.id.list_edad)           // ID correcto
-    val ivAvatar: ImageView = view.findViewById(R.id.list_cell1_ivAvatar) // ID correcto
-    val constrains: ConstraintLayout = view.findViewById(R.id.list1_cell_raiz) // ID correcto
+    var txtName: TextView = view.findViewById(R.id.list_name)
+    var txtHobbie: TextView = view.findViewById(R.id.list_hobbie)
+    var txtApellido: TextView = view.findViewById(R.id.list_apellido)
+    var txtEdad: TextView = view.findViewById(R.id.list_edad)
+
+    val ivAvatar: ImageView = itemView.findViewById(R.id.list_cell1_ivAvatar)
+    val constrains: ConstraintLayout = view.findViewById(R.id.list1_cell_raiz)
 
     lateinit var fbProfile: FBProfile
 
@@ -35,10 +38,12 @@ class StringViewHolder(val view: View, val fragmentoPadre: Fragment) : RecyclerV
     }
 
     fun asignarDatos(profile: FBProfile) {
-        txtName.text = profile.name          // Asegúrate de que FBProfile tiene una propiedad 'name'
-        txtHobbie.text = profile.hobbie      // Asegúrate de que FBProfile tiene una propiedad 'hobbie'
-        txtApellido.text = profile.apellido   // Asegúrate de que FBProfile tiene una propiedad 'apellido'
-        txtEdad.text = profile.edad.toString() // Asegúrate de que FBProfile tiene una propiedad 'edad' y convierte a String si es necesario
+        txtName.text = profile.name
+        txtHobbie.text = profile.hobbie
+        txtApellido.text = profile.apellido
+        txtEdad.text = profile.edad.toString()
+        //Llamada a la clase piccaso
+        Picasso.get().load(profile.sImgUrl).into(ivAvatar)
 
         fbProfile = profile
     }
