@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.firestore
+import com.squareup.picasso.Picasso
 
 
 class HomeCambiarFragment : Fragment(), OnClickListener {
@@ -101,8 +102,10 @@ class HomeCambiarFragment : Fragment(), OnClickListener {
 
         if(nombre.isNotEmpty() && apellido.isNotEmpty() && hobbie.isNotEmpty() && edad.isNotEmpty() && foto.isNotEmpty() ){
 
+            // val nuevoPerfil = FBProfile(edTxtNombre.text.toString(),edTxtEdad.text.toString(), edTxtHobbie.text.toString(), edTxtApellido.text.toString(), edTxtFoto.text.toString(), auth.currentUser!!.uid)
 
-            val nuevoPerfil = FBProfile(edTxtNombre.text.toString(), edTxtEdad.text.toString(), edTxtHobbie.text.toString(), edTxtApellido.text.toString(), edTxtFoto.text.toString(), auth.currentUser!!.uid)
+            val nuevoPerfil = FBProfile(nombre, edad, hobbie, apellido, foto,auth.currentUser!!.uid)
+
 
             DataHolder.fbProfileUser=nuevoPerfil
 

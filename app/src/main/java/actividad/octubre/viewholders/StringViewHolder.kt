@@ -57,7 +57,7 @@ class StringViewHolder(val view: View, val fragmentoPadre: Fragment) : RecyclerV
     }
    fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StringViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list_cell1, parent, false) // Asegúrate de que estás usando el nombre correcto aquí
+            .inflate(R.layout.list_cell1, parent, false)
         return StringViewHolder(view, fragmentoPadre)
     }
 

@@ -16,8 +16,10 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.database.core.RepoManager.clear
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+
 
 
 class listProfilesFragment : Fragment(),OnClickListener {
@@ -25,6 +27,7 @@ class listProfilesFragment : Fragment(),OnClickListener {
 
     lateinit var btnPerfil:Button
     lateinit var btnMayores:Button
+
     private val viewModelProfiles : ListProfilesViewModel by activityViewModels()
     val db = Firebase.firestore
 
@@ -72,6 +75,11 @@ class listProfilesFragment : Fragment(),OnClickListener {
         }
         if(p0!!.id==btnMayores.id){
               //  mostrarPerfilesMayoresDe35()
+            Toast.makeText(
+                requireActivity(),
+                "No he sabido hacerlo",
+                Toast.LENGTH_SHORT,
+            ).show()
         }
     }
 
@@ -83,20 +91,23 @@ class listProfilesFragment : Fragment(),OnClickListener {
 //            .whereGreaterThan("edad", 35) // Consulta para filtrar por edad
 //            .get()
 //            .addOnSuccessListener { result ->
-//                listProfilesFragment.clear() // Limpia la lista antes de agregar nuevos perfiles
+//                ListProfilesViewModel.clear() // Limpia la lista antes de agregar nuevos perfiles
 //                for (document in result) {
 //                    val profile = FBProfile(
 //                        sUID = document.id,
 //                        name = document.getString("nombre") ?: "",
-//                        edad = document.getString("edad")?: "",
+//                        edad = document.getString("edad") ?: "",
 //                        apellido = document.getString("apellidos") ?: "",
 //                        hobbie = document.getString("hobbies") ?: "",
 //                        sImgUrl = document.getString("imagenUrl")
 //                    )
 //                    listProfilesFragment.add(profile)
 //                }
-//                rvListProfiles.notifyDataSetChanged()
-//                if (ListProfilesViewModel.isEmpty()) {
+//
+//                // Asegúrate de que este es el adaptador del RecyclerView
+//                rvListProfilesAdapter.notifyDataSetChanged()
+//
+//                if (listProfilesFragment.isEmpty()) { // Comprueba si la lista está vacía
 //                    Toast.makeText(requireContext(), "No hay perfiles mayores de 35 años disponibles.", Toast.LENGTH_SHORT).show()
 //                }
 //            }
@@ -105,6 +116,7 @@ class listProfilesFragment : Fragment(),OnClickListener {
 //                Toast.makeText(requireContext(), "Error al recuperar perfiles mayores de 35 años.", Toast.LENGTH_SHORT).show()
 //            }
 //    }
+
 
 
 

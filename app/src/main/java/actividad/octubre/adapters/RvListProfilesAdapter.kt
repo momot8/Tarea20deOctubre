@@ -25,6 +25,7 @@ class RvListProfilesAdapter(var listaDeProfiles:List<FBProfile>, val fragmentoPa
     override fun onBindViewHolder(holder: StringViewHolder, position: Int) {
 
         holder.asignarDatos(listaDeProfiles[position])
+
         //Log.v("RvListProfilesAdapter","------->>>>>>>>> "+listaDeProfiles[position].sImgUrl)
 
 

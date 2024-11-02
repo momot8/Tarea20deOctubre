@@ -130,9 +130,12 @@ class homeProfileFragment : Fragment(),OnClickListener {
             currentUser?.let { user ->
                 val uid = user.uid
                 val docRef = db.collection("Profiles").document(uid)
-
-                docRef.update("name", FieldValue.delete())
-                docRef.update("age", FieldValue.delete())
+                 //Si borramos t0do y luego sepuede volver hacia atras aparecerá t0do como null, asique quitamos la opcion de borrar t0do
+//                docRef.update("name", FieldValue.delete())
+//                docRef.update("edad", FieldValue.delete())
+//                docRef.update("simgUrl",FieldValue.delete())
+//                docRef.update("hobbie",FieldValue.delete())
+//                docRef.update("apellido", FieldValue.delete())
 
             }
         }

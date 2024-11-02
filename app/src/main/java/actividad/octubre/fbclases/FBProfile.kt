@@ -7,6 +7,6 @@ data class FBProfile(var name: String? = null,
                      var hobbie:String? = null,
                      var apellido:String? = null,
                      var sImgUrl:String? = null,
-                     var sUID:String?=null
+                     var sUID:String? =null
 )
 

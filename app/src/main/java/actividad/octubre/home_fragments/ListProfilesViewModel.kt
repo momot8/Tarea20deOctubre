@@ -39,28 +39,7 @@ class ListProfilesViewModel: ViewModel() {
 
     fun descargarDatos(){
         val docRef = db.collection("Profiles")
-        /*docRef.get().addOnSuccessListener { resultQuery ->
-            profilesList.clear()
-            rvListProfilesAdapter.notifyItemRangeRemoved(0,profilesList.size-1)
 
-            val handler = Handler(Looper.getMainLooper())
-            handler.postDelayed({
-
-                if(!resultQuery.isEmpty){
-                    val posIni=profilesList.size
-                    for (document in resultQuery.documents){
-                        val fbProfileTemp=document.toObject(FBProfile::class.java)
-                        profilesList.add(fbProfileTemp!!)
-                        //Log.v("FIREBASE","NOMBRE DOCUMENTO DESCARGO: "+fbProfileTemp!!.name)
-                    }
-                    val posFin=profilesList.size-1
-                    rvListProfilesAdapter.notifyItemRangeInserted(posIni,posFin)
-                    //rvListProfilesAdapter.notifyDataSetChanged()
-                }
-
-            }, 2000)
-        }.addOnFailureListener {}
-        */
 
         docRef.addSnapshotListener { resultQuery, e ->
             if (e != null) {
@@ -70,9 +49,6 @@ class ListProfilesViewModel: ViewModel() {
             if (resultQuery != null && !resultQuery.isEmpty) {
                 val listaTemp= mutableListOf<FBProfile>()
 
-                //val tempSize=listaTemp.size
-                //listaTemp.clear()
-                //rvListProfilesAdapter.notifyItemRangeRemoved(0,tempSize)
 
 
                 val posIni=0
@@ -81,13 +57,10 @@ class ListProfilesViewModel: ViewModel() {
                     val fbProfileTemp=document.toObject(FBProfile::class.java)
                     fbProfileTemp!!.sUID=document.id
                     listaTemp.add(fbProfileTemp!!)
-                    //Log.v("FIREBASE","NOMBRE DOCUMENTO DESCARGO: "+fbProfileTemp!!.name)
+
                 }
 
                 setProfileList(listaTemp)
-                //val posFin=profilesList.size
-                //rvListProfilesAdapter.notifyItemRangeInserted(posIni,posFin)
-                //rvListProfilesAdapter.notifyDataSetChanged()
             } else {
 
             }
