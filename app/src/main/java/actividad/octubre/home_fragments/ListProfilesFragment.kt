@@ -105,7 +105,7 @@ class listProfilesFragment : Fragment(),OnClickListener {
 //                }
 //
 //                // Asegúrate de que este es el adaptador del RecyclerView
-//                rvListProfilesAdapter.notifyDataSetChanged()
+//                RvListProfilesAdapter.notifyDataSetChanged()
 //
 //                if (listProfilesFragment.isEmpty()) { // Comprueba si la lista está vacía
 //                    Toast.makeText(requireContext(), "No hay perfiles mayores de 35 años disponibles.", Toast.LENGTH_SHORT).show()
